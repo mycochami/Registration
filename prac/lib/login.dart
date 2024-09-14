@@ -39,7 +39,7 @@ Future login() async {
       names.add(name[6].toString());
     }
     var realPassword = db_password.toList()[0][0];
-    if (realPassword.toString() == user_password.hashCode.toString()) {
+    if (realPassword.toString() == user_password.toString()) {
       print("welcome ${names[1]} ${names[2]}");
       print("Your registration ID is ${names[0]},You studied at ${names[4]},and your department is ${names[5]}");
       await conn.close();

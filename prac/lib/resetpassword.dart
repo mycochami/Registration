@@ -21,7 +21,7 @@ Future resetpassword() async {
     lnamelist.add(lname2.first.toString());
   }
   if (fnamelist.contains(infname)) {
-    stdout.write('write your current last name: ');
+    stdout.write('write your current last name:');
     var lername = stdin.readLineSync();
 
     if (lnamelist.contains(lername)) {
@@ -29,12 +29,6 @@ Future resetpassword() async {
           .query('select USERNAME from employee where LEMPNAME =?', [lername]);
     print('');
     print('Password should contain upper & small letters, numbers, and special characters.');
-
-        stdout.write('write your new password: ');
-        stdin.echoMode = false;
-        var reset = stdin.readLineSync().hashCode;
-        stdin.echoMode = true;
-        print('');
 
         bool strong(String password) {
   bool upper = password.contains(RegExp(r'[A-Z]'));
@@ -50,8 +44,7 @@ String password;
   do {
    
     print('');
-    stdout.write("Enter password: ");
-    
+    stdout.write("Enter your new password:"); 
    stdin.echoMode = false;
     password = stdin.readLineSync()!;
     stdin.echoMode = true;
@@ -62,14 +55,15 @@ String password;
   } while (!strong(password));
 
   print("");
-        stdout.write('verify your password: ');
+        stdout.write('verify your password:');
         stdin.echoMode = false;
-        var verset = stdin.readLineSync().hashCode;
+        var verset = stdin.readLineSync();
         stdin.echoMode = true;
-        print('');
-         if (verset == reset) {
+      
+         if (verset == password) {
           var newpass = await con.query(
               'update employee set PASSWORD =? where LEMPNAME = ?',[verset, lername]);
+            print('');
          print('welcome $infname $lername:Your password reset is successfully\n');
           
           stdout.write('Press 1 for login or any key for exit:');

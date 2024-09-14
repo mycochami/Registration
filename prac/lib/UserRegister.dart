@@ -9,7 +9,7 @@ Future userRegister() async {
 
   print("");
 
-  stdout.write("====1. Enter your work ID: ");
+  stdout.write("====1. Enter your registration ID: ");
   var EMPID = stdin.readLineSync();
 
   stdout.write("====1. Enter your first name: ");
@@ -64,18 +64,24 @@ Future userRegister() async {
   } while (!strong(password));
    
   print("");
-  stdout.write("====5. Enter your password to verify: ");
-  
+  stdout.write("====5. Enter your password to verify: "); 
   stdin.echoMode = false;
-  var verPassword = stdin.readLineSync().hashCode;
+  var verPassword = stdin.readLineSync();
   stdin.echoMode = true;
   print("");
-  var PASSWORD = verPassword;
+  
+  if (verPassword == password){
+    var PASSWORD = password;
 
     var employee_data_insert = await conn.query(
       'insert into employee values(?,?,?,?,?,?,?,?)',
       [EMPID, EMPNAME, LEMPNAME, GENDER,COLLEGUE, DEPARTMENT, USERNAME, PASSWORD,]);
-  
+  }
+
+  else{
+    print('Pasword does not match');
+    exit(0);
+  }
     print("Thank you for using our registration menu");
     print("=====You are successfuly registered=====");
     print(" ______________________________________ ");
@@ -91,6 +97,6 @@ Future userRegister() async {
     } else  {
       exit(0);
     }
-  
+
    await conn.close();
 }
